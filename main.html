@@ -1,0 +1,46 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <p id="demo"></p>
+
+        <script>
+        var xhttp;
+        xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+            myFunction(this);
+            }
+        };
+
+        xhttp.open("GET", "http://192.168.90.236:5500/practica/Tiempo.xml", true);
+        xhttp.send();
+
+        function myFunction(xml) {
+            var x, i, txt, xmlDoc, prov, tiempo;
+            xmlDoc = xml.responseXML;
+            console.log(xmlDoc);
+            txt = "";
+            x = xmlDoc.getElementsByTagName("nombre");
+            prov = xmlDoc.getElementsByTagName("provincia");
+                for (i = 0; i < x.length; i++) {
+                txt += x[i].childNodes[0].nodeValue + "<br>";
+                }
+
+                for (i = 0; i < prov.length; i++) {
+                txt += prov[i].childNodes[0].nodeValue + "<br>";
+                }
+            tiempo = xmlDoc.getElementsByTagName("dia").length;
+            console.log(tiempo)
+                for (i = 0 ; i <tiempo.length; i++) {
+                    txt += tiempo[i].childNodes[0].nodeValue + "<br>";
+                }
+            document.getElementById("demo").innerHTML = txt;
+        }
+        </script>
+    </body>
+    </html>
